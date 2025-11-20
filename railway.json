@@ -1,0 +1,6 @@
+{
+  "deploy": {
+    "healthcheckPath": "/api/v1/pedidos",
+    "healthcheckTimeout": 10000
+  }
+}

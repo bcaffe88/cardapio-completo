@@ -1,0 +1,57 @@
+{
+  "name": "cardapio-online-integracao-whatsapp",
+  "version": "1.0.0",
+  "description": "Sistema de cardápio online com integração a webhooks (iFood, Anota Aí) e notificações via Socket.IO.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "npm run build:css && npm run build:js",
+    "build:css": "npx tailwindcss -i ./public/index.css -o ./public/dist/style.css --minify --config tailwind.config.js",
+    "build:js": "npx esbuild ./public/main.tsx --bundle --outfile=./public/dist/bundle.js --loader:.tsx=tsx --loader:.ts=ts --define:process.env.NODE_ENV='\"production\"' --alias:@/components=./public/components --alias:@/pages=./public/pages --alias:@/contexts=./public/contexts --alias:@/hooks=./public/hooks --alias:@/lib=./public/lib --alias:@/utils=./public/utils",
+    "postinstall": "echo 'No postinstall script needed'",
+    "build:server": "tsc --project tsconfig.server.json",
+    "start:server": "node -r tsconfig-paths/register dist/index.js",
+    "dev:trpc": "ts-node -r tsconfig-paths/register index.ts",
+    "db:generate": "cross-env DATABASE_URL=\"postgresql://user:password@host:5432/db\" drizzle-kit generate",
+    "db:migrate": "ts-node -r dotenv/config migrate.ts",
+    "dev": "concurrently \"npm start\" \"npm run dev:trpc\""
+  },
+  "keywords": [
+    "express",
+    "socket.io",
+    "webhook",
+    "cardapio",
+    "whatsapp"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@trpc/server": "^11.7.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "drizzle-orm": "^0.44.7",
+    "express": "^4.19.2",
+    "lucide-react": "^0.554.0",
+    "pg": "^8.16.3",
+    "postgres": "^3.4.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.8.1",
+    "sonner": "^2.0.7",
+    "superjson": "^2.2.5",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "uuid": "^9.0.1",
+    "wouter": "^3.7.1",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "drizzle-kit": "^0.31.7",
+    "esbuild": "^0.23.0",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.5.3"
+  }
+}
